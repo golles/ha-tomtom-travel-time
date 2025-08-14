@@ -18,9 +18,9 @@ from tomtom_apis.routing.models import AvoidType, RouteType
 from . import get_mock_config_data, setup_integration, unload_integration
 
 MOCK_UPDATE_CONFIG = {
-    CONF_VEHICLE_TYPE: TravelModeType.BICYCLE.value,
-    CONF_ROUTE_TYPE: RouteType.ECO.value,
-    CONF_AVOID_TYPE: [AvoidType.TOLL_ROADS.value],
+    CONF_VEHICLE_TYPE: TravelModeType.BICYCLE.name.lower(),
+    CONF_ROUTE_TYPE: RouteType.ECO.name.lower(),
+    CONF_AVOID_TYPE: [AvoidType.TOLL_ROADS.name.lower()],
 }
 
 

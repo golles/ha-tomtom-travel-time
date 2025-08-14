@@ -62,9 +62,9 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
             else:
                 locations.append(lat_lon.location)
 
-        travel_mode = TravelModeType(self.config_entry.options[CONF_VEHICLE_TYPE])
-        route_type = RouteType(self.config_entry.options[CONF_ROUTE_TYPE])
-        avoids: list[AvoidType] = [AvoidType(avoid) for avoid in self.config_entry.options[CONF_AVOID_TYPE]]
+        travel_mode = TravelModeType[self.config_entry.options[CONF_VEHICLE_TYPE].upper()]
+        route_type = RouteType[self.config_entry.options[CONF_ROUTE_TYPE].upper()]
+        avoids: list[AvoidType] = [AvoidType[avoid.upper()] for avoid in self.config_entry.options[CONF_AVOID_TYPE]]
 
         _LOGGER.debug("Planning route with locations: %s travel_mode: %s, route_type: %s, avoids: %s", locations, travel_mode, route_type, avoids)
 

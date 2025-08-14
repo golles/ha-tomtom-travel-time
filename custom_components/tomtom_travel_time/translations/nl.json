@@ -44,16 +44,16 @@
   "selector": {
     "avoid_type": {
       "options": {
-        "tollRoads": "Tolwegen",
+        "toll_roads": "Tolwegen",
         "motorways": "Snelwegen",
         "ferries": "Veerboten",
-        "unpavedRoads": "Onverharde wegen",
+        "unpaved_roads": "Onverharde wegen",
         "carpools": "Carpoolstroken",
-        "alreadyUsedRoads": "Reeds gebruikte wegen",
-        "borderCrossings": "Grensovergangen",
+        "already_used_roads": "Reeds gebruikte wegen",
+        "border_crossings": "Grensovergangen",
         "tunnels": "Tunnels",
-        "carTrains": "Auto-treinen",
-        "lowEmissionZones": "Lage-emissiezones"
+        "car_trains": "Auto-treinen",
+        "low_emission_zones": "Lage-emissiezones"
       }
     },
     "vehicle_type": {

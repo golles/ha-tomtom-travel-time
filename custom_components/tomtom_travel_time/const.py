@@ -15,13 +15,13 @@ CONF_AVOID_TYPE = "avoid_type"
 
 DEFAULT_NAME = "TomTom Travel Time"
 DEFAULT_SCAN_INTERVAL = 600
-DEFAULT_VEHICLE_TYPE = TravelModeType.CAR.value
-DEFAULT_ROUTE_TYPE = RouteType.FASTEST.value
+DEFAULT_VEHICLE_TYPE = TravelModeType.CAR.name.lower()
+DEFAULT_ROUTE_TYPE = RouteType.FASTEST.name.lower()
 DEFAULT_AVOID_TYPE: list[str] = []
 
-VEHICLE_TYPES = [item.value for item in TravelModeType]
-ROUTE_TYPES = [item.value for item in RouteType]
-AVOID_TYPES = [item.value for item in AvoidType]
+VEHICLE_TYPES = [item.name.lower() for item in TravelModeType]
+ROUTE_TYPES = [item.name.lower() for item in RouteType]
+AVOID_TYPES = [item.name.lower() for item in AvoidType]
 
 DEFAULT_OPTIONS: dict[str, str | bool | list[str]] = {
     CONF_VEHICLE_TYPE: DEFAULT_VEHICLE_TYPE,

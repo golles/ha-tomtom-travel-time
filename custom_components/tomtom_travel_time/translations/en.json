@@ -44,16 +44,16 @@
   "selector": {
     "avoid_type": {
       "options": {
-        "tollRoads": "Toll roads",
+        "toll_roads": "Toll roads",
         "motorways": "Motorways",
         "ferries": "Ferries",
-        "unpavedRoads": "Unpaved roads",
+        "unpaved_roads": "Unpaved roads",
         "carpools": "Carpools",
-        "alreadyUsedRoads": "Already used roads",
-        "borderCrossings": "Border crossings",
+        "already_used_roads": "Already used roads",
+        "border_crossings": "Border crossings",
         "tunnels": "Tunnels",
-        "carTrains": "Car trains",
-        "lowEmissionZones": "Low emission zones"
+        "car_trains": "Car trains",
+        "low_emission_zones": "Low emission zones"
       }
     },
     "vehicle_type": {

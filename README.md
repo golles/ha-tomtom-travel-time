@@ -36,6 +36,16 @@ The TomTom Travel Time integration provides travel time information using TomTom
    ```
 3. Restart Home Assistant.
 
+## Api key
+
+To use the TomTom Travel Time integration, you need a (free) TomTom API key. You can obtain one by signing up at the [TomTom Developer Portal](https://developer.tomtom.com/).
+
+1. Go to **API & SDK Keys** and click **Create Key**.
+2. Enter a name, e.g., **"Home Assistant Integration"**.
+3. Under "Products", select **Routing API** and **Geocoding API**
+4. Click **Create Key**.
+5. Click on your new API key to copy it.
+
 ## Configuration
 
 Configuration is done entirely through the Home Assistant UI—no YAML editing required!

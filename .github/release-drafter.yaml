@@ -46,6 +46,6 @@ version-resolver:
   default: patch
 
 template: |
-  ## What's Changed
+  Thank you for using this integration! If you find it helpful, please consider starring the repository. ⭐️
 
   $CHANGES

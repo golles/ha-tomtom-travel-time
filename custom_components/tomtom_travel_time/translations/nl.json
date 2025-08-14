@@ -1,0 +1,89 @@
+{
+  "title": "TomTom reistijd",
+  "config": {
+    "step": {
+      "user": {
+        "description": "Voer voor locaties het adres of de GPS-coördinaten van de locatie in (GPS-coördinaten moeten gescheiden worden door een komma). Je kunt ook een entity-ID invoeren die deze informatie in zijn status heeft, een entity-ID met latitude- en longitude-attributen, of de vriendelijke naam van een zone.",
+        "data": {
+          "name": "Naam",
+          "api_key": "API-sleutel",
+          "locations": "Locaties"
+        }
+      }
+    },
+    "error": {
+      "at_least_two_locations": "Minimaal twee locaties zijn vereist om een route te plannen en de reistijd te berekenen.",
+      "cannot_determine_locations": "Kan locatie {num} niet bepalen.",
+      "client_error": "Er is een clientfout opgetreden bij het communiceren met TomTom. Controleer je API-sleutel en netwerkverbinding.",
+      "timeout_connect": "Time-out bij het verbinden met TomTom. Probeer het later opnieuw.",
+      "server_error": "Er is een serverfout opgetreden bij het communiceren met TomTom. Probeer het later opnieuw.",
+      "cannot_connect": "Kan geen verbinding maken met TomTom. Probeer het later opnieuw.",
+      "cannot_plan_route": "Kan route niet plannen. Controleer je locaties en probeer het opnieuw."
+    },
+    "abort": {
+      "already_configured": "Al geconfigureerd. Verwijder de bestaande integratie voordat je een nieuwe toevoegt.",
+      "reconfigure_successful": "Herconfiguratie geslaagd."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "Sommige opties stellen je in staat om de integratie te dwingen een bepaalde route te gebruiken of een bepaalde route te vermijden bij het berekenen van de reistijd.",
+        "data": {
+          "units": "Eenheden",
+          "vehicle_type": "Voertuigtype",
+          "route_type": "Routetype",
+          "avoid_type": "Vermijden",
+          "avoid_toll_roads": "Tolwegen vermijden?",
+          "avoid_ferries": "Veerboten vermijden?",
+          "avoid_subscription_roads": "Wegen waarvoor een vignet/abonnement nodig is vermijden?"
+        }
+      }
+    }
+  },
+  "selector": {
+    "avoid_type": {
+      "options": {
+        "tollRoads": "Tolwegen",
+        "motorways": "Snelwegen",
+        "ferries": "Veerboten",
+        "unpavedRoads": "Onverharde wegen",
+        "carpools": "Carpoolstroken",
+        "alreadyUsedRoads": "Reeds gebruikte wegen",
+        "borderCrossings": "Grensovergangen",
+        "tunnels": "Tunnels",
+        "carTrains": "Auto-treinen",
+        "lowEmissionZones": "Lage-emissiezones"
+      }
+    },
+    "vehicle_type": {
+      "options": {
+        "bicycle": "Fiets",
+        "bus": "Bus",
+        "car": "Auto",
+        "motorcycle": "Motorfiets",
+        "other": "Overig",
+        "pedestrian": "Voetganger",
+        "taxi": "Taxi",
+        "truck": "Vrachtwagen",
+        "van": "Bestelwagen"
+      }
+    },
+    "route_type": {
+      "options": {
+        "fastest": "Snelste route",
+        "shortest": "Kortste route",
+        "short": "Korte route",
+        "eco": "Eco-route",
+        "thrilling": "Spannende route"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "duration": { "name": "Duur" },
+      "distance": { "name": "Afstand" },
+      "delay": { "name": "Duur in verkeer" }
+    }
+  }
+}

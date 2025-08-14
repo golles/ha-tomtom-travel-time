@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pre-commit:all-files",
+      "type": "shell",
+      "command": "uv run pre-commit run --all-files",
+      "problemMatcher": []
+    },
+    {
+      "label": "pre-commit:staged",
+      "type": "shell",
+      "command": "uv run pre-commit run",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Home Assistant",
+      "type": "shell",
+      "command": "scripts/develop.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run tests",
+      "type": "shell",
+      "command": "uv run pytest",
+      "problemMatcher": []
+    }
+  ]
+}

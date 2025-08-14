@@ -1,0 +1,11 @@
+{
+  "domain": "tomtom_travel_time",
+  "name": "TomTom Travel Time",
+  "codeowners": ["@golles"],
+  "config_flow": true,
+  "documentation": "https://github.com/golles/ha-tomtom-travel-time/blob/main/README.md",
+  "iot_class": "cloud_polling",
+  "loggers": ["tomtom_apis", "homeassistant.helpers.location"],
+  "requirements": ["tomtom-apis==0.0.1a11"],
+  "version": "0.0.1"
+}

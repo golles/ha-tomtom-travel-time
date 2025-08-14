@@ -1,0 +1,89 @@
+{
+  "title": "TomTom Travel Time",
+  "config": {
+    "step": {
+      "user": {
+        "description": "For locations, enter the address or the GPS coordinates of the location (GPS coordinates has to be separated by a comma). You can also enter an entity ID which provides this information in its state, an entity ID with latitude and longitude attributes, or zone friendly name.",
+        "data": {
+          "name": "Name",
+          "api_key": "API Key",
+          "locations": "Location"
+        }
+      }
+    },
+    "error": {
+      "at_least_two_locations": "At least two locations are required to plan a route and calculate travel time.",
+      "cannot_determine_locations": "Cannot determine location {num}.",
+      "client_error": "Client error occurred while communicating with TomTom. Please check your API key and network connection.",
+      "timeout_connect": "Timeout while connecting to TomTom. Please try again later.",
+      "server_error": "Server error occurred while communicating with TomTom. Please try again later.",
+      "cannot_connect": "Cannot connect to TomTom. Please try again later.",
+      "cannot_plan_route": "Cannot plan route. Please check your locations and try again."
+    },
+    "abort": {
+      "already_configured": "Already configured. Please remove the existing integration before adding a new one.",
+      "reconfigure_successful": "Reconfiguration successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "Some options will allow you to force the integration to use a particular route or avoid a particular route in its time travel calculation.",
+        "data": {
+          "units": "Units",
+          "vehicle_type": "Vehicle type",
+          "route_type": "Route type",
+          "avoid_type": "Avoid",
+          "avoid_toll_roads": "Avoid toll roads?",
+          "avoid_ferries": "Avoid ferries?",
+          "avoid_subscription_roads": "Avoid roads needing a vignette / subscription?"
+        }
+      }
+    }
+  },
+  "selector": {
+    "avoid_type": {
+      "options": {
+        "tollRoads": "Toll roads",
+        "motorways": "Motorways",
+        "ferries": "Ferries",
+        "unpavedRoads": "Unpaved roads",
+        "carpools": "Carpools",
+        "alreadyUsedRoads": "Already used roads",
+        "borderCrossings": "Border crossings",
+        "tunnels": "Tunnels",
+        "carTrains": "Car trains",
+        "lowEmissionZones": "Low emission zones"
+      }
+    },
+    "vehicle_type": {
+      "options": {
+        "bicycle": "Bicycle",
+        "bus": "Bus",
+        "car": "Car",
+        "motorcycle": "Motorcycle",
+        "other": "Other",
+        "pedestrian": "Pedestrian",
+        "taxi": "Taxi",
+        "truck": "Truck",
+        "van": "Van"
+      }
+    },
+    "route_type": {
+      "options": {
+        "fastest": "Fastest route",
+        "shortest": "Shortest route",
+        "short": "Short route",
+        "eco": "Eco route",
+        "thrilling": "Thrilling route"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "duration": { "name": "Duration" },
+      "distance": { "name": "Distance" },
+      "delay": { "name": "Duration in traffic" }
+    }
+  }
+}

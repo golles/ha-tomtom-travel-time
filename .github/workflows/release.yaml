@@ -1,0 +1,46 @@
+name: Release
+
+on: # yamllint disable-line rule:truthy
+  release:
+    types:
+      - published
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out code from GitHub
+        uses: actions/checkout@v5
+
+      - name: Setup Python and uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Set integration version
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          version=${version#v}
+          sed -i -E 's/"version": *"[^"]+"/"version": "'"$version"'"/' custom_components/tomtom_travel_time/manifest.json
+
+      - name: Create archive
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/custom_components/tomtom_travel_time"
+          zip -r "${{ github.workspace }}/tomtom_travel_time.zip" ./*
+
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: tomtom_travel_time.zip

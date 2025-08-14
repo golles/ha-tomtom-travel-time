@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔑 Get TomTom API key
+    url: https://developer.tomtom.com/user/login
+    about: Login or create an account to get your key
+
+  - name: TomTom APIs library
+    url: https://github.com/golles/tomtom-apis-python
+    about: Python library repository.

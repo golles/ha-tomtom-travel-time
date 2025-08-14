@@ -1,0 +1,16 @@
+{
+  "name": "tomtom-travel-time",
+  "version": "0.0.1",
+  "description": "A custom Home Assistant component that integrates TomTom travel time data",
+  "author": "Sander Gols <developer@golles.nl>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  },
+  "scripts": {
+    "prettier": "prettier"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "TomTom Travel Time",
+  "homeassistant": "2025.5.0",
+  "zip_release": true,
+  "filename": "tomtom_travel_time"
+}

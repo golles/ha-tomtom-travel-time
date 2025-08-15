@@ -14,7 +14,7 @@ CONF_ROUTE_TYPE = "route_type"
 CONF_AVOID_TYPE = "avoid_type"
 
 DEFAULT_NAME = "TomTom Travel Time"
-DEFAULT_SCAN_INTERVAL = 600
+DEFAULT_SCAN_INTERVAL = 300
 DEFAULT_VEHICLE_TYPE = TravelModeType.CAR.name.lower()
 DEFAULT_ROUTE_TYPE = RouteType.FASTEST.name.lower()
 DEFAULT_AVOID_TYPE: list[str] = []

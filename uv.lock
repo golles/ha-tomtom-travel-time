@@ -2249,7 +2249,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-cov" },
-    { name = "pytest-homeassistant-custom-component", specifier = "==0.13.270" },
+    { name = "pytest-homeassistant-custom-component" },
     { name = "ruff", specifier = "==0.12.10" },
     { name = "shellcheck-py", specifier = "==0.11.0.1" },
     { name = "yamllint", specifier = "==1.37.1" },

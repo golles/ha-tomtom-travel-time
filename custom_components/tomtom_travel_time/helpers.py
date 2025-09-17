@@ -4,6 +4,7 @@ import logging
 import re
 
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.location import find_coordinates
 
 from custom_components.tomtom_travel_time.model import UserInputLatLan
@@ -33,7 +34,7 @@ async def lat_lon_from_user_input(hass: HomeAssistant, api_key: str, user_input:
             return UserInputLatLan(location=LatLon(lat=lat, lon=lon))
 
     # Step 3: Fallback to geocoding API to determine the location.
-    async with GeocodingApi(ApiOptions(api_key=api_key)) as geo_coding_api:
+    async with GeocodingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass)) as geo_coding_api:
         response = await geo_coding_api.get_geocode(query=user_input)
 
         if len(response.results) > 0:
@@ -43,9 +44,9 @@ async def lat_lon_from_user_input(hass: HomeAssistant, api_key: str, user_input:
     return None
 
 
-async def is_valid_config_entry(api_key: str, locations: list[LatLon]) -> bool:
+async def is_valid_config_entry(hass: HomeAssistant, api_key: str, locations: list[LatLon]) -> bool:
     """Return whether the config entry data is valid."""
-    async with RoutingApi(ApiOptions(api_key=api_key)) as routing_api:
+    async with RoutingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass)) as routing_api:
         response = await routing_api.get_calculate_route(
             locations=LatLonList(locations=locations),
             params=CalculateRouteParams(

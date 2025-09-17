@@ -7,6 +7,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/golles/ha-tomtom-travel-time/issues",
   "loggers": ["tomtom_apis", "homeassistant.helpers.location"],
-  "requirements": ["tomtom-apis==0.0.1a11"],
+  "requirements": ["tomtom-apis==0.1.0"],
   "version": "0.0.1"
 }

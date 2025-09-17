@@ -17,7 +17,7 @@ classifiers = [
 ]
 dependencies = [
     "homeassistant>=2025.8.0",
-    "tomtom-apis==0.0.1a11",
+    "tomtom-apis==0.1.0",
 ]
 
 [project.urls]

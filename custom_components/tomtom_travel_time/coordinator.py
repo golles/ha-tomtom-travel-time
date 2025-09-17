@@ -8,6 +8,7 @@ from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from custom_components.tomtom_travel_time.const import (
@@ -48,7 +49,7 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
             update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
         self._api_key = api_key
-        self._api = RoutingApi(ApiOptions(api_key=api_key))
+        self._api = RoutingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass))
 
     async def _async_update_data(self) -> TomTomTravelTimeData:
         """Get the latest data from the Routing API."""

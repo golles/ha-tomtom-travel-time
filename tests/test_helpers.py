@@ -71,18 +71,20 @@ async def test_lat_lon_from_user_input_none(mock_geocoding_api: AsyncMock) -> No
 @patch("custom_components.tomtom_travel_time.helpers.RoutingApi")
 async def test_is_valid_config_entry_success(mock_routing_api: AsyncMock) -> None:
     """Test is_valid_config_entry with valid locations."""
+    hass = MagicMock()
     api_key = "dummy"
     locations = [LatLon(lat=1.0, lon=2.0), LatLon(lat=3.0, lon=4.0)]
     mock_api_instance = AsyncMock()
     mock_api_instance.__aenter__.return_value = mock_api_instance
     mock_api_instance.get_calculate_route.return_value.routes = [MagicMock()]
     mock_routing_api.return_value = mock_api_instance
-    result = await is_valid_config_entry(api_key, locations)
+    result = await is_valid_config_entry(hass, api_key, locations)
     assert result is True
 
 
 async def test_is_valid_config_entry_failure(mock_routing_api: AsyncMock) -> None:
     """Test is_valid_config_entry with invalid locations."""
+    hass = MagicMock()
     api_key = "dummy"
     locations = [LatLon(lat=1.0, lon=2.0), LatLon(lat=3.0, lon=4.0)]
     mock_api_instance = AsyncMock()
@@ -90,7 +92,7 @@ async def test_is_valid_config_entry_failure(mock_routing_api: AsyncMock) -> Non
     mock_api_instance.get_calculate_route.return_value.routes = []
     mock_routing_api.return_value = mock_api_instance
     with pytest.raises(ValidationError) as exc:
-        await is_valid_config_entry(api_key, locations)
+        await is_valid_config_entry(hass, api_key, locations)
     assert exc.value.error_key == "cannot_plan_route"
 
 

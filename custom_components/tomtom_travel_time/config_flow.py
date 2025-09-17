@@ -139,7 +139,7 @@ class TomTomConfigFlow(ConfigFlow, domain=DOMAIN):  # pylint: disable=abstract-m
                         user_input[CONF_LOCATIONS][index] = lat_lon.location.to_comma_separated()
                     lat_lon_locations.append(lat_lon.location)
 
-                if await is_valid_config_entry(api_key, lat_lon_locations):
+                if await is_valid_config_entry(self.hass, api_key, lat_lon_locations):
                     if self.source == SOURCE_RECONFIGURE:
                         return self.async_update_reload_and_abort(
                             self._get_reconfigure_entry(),

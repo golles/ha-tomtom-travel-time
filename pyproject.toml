@@ -3,7 +3,7 @@ name = "tomtom-travel-time"
 version = "0.0.1"
 description = "A custom Home Assistant component that integrates TomTom travel time data"
 authors = [{ name = "Sander Gols", email = "developer@golles.nl" }]
-requires-python = ">=3.13.2,<3.14"
+requires-python = ">=3.14,<3.15"
 readme = "README.md"
 license = "MIT"
 classifiers = [

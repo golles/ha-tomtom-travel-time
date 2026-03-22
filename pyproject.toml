@@ -12,7 +12,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
@@ -59,7 +59,7 @@ source = ["custom_components/tomtom_travel_time"]
 packages = ["custom_components/tomtom_travel_time"]
 
 [tool.mypy]
-python_version = "3.13"
+python_version = "3.14"
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
@@ -92,14 +92,14 @@ src = ["custom_components/tomtom_travel_time"]
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "COM812",  # Cause conflicts when used with the formatter.
-  "TC",  # Ignore type-checking blocks.
+  "COM812", # Cause conflicts when used with the formatter.
+  "TC",     # Ignore type-checking blocks.
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
-  "S101",  # Allow assertions in tests.
-  "PLR2004",  # Allow magic numbers in tests.
+  "S101",    # Allow assertions in tests.
+  "PLR2004", # Allow magic numbers in tests.
 ]
 
 [tool.ruff.lint.pydocstyle]

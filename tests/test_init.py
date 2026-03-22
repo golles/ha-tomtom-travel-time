@@ -2,10 +2,9 @@
 
 from homeassistant.core import HomeAssistant
 
-from custom_components.tomtom_travel_time import async_unload_entry
 from custom_components.tomtom_travel_time.coordinator import TomTomDataUpdateCoordinator
 
-from . import setup_integration
+from . import setup_integration, unload_integration
 
 
 async def test_setup_and_unload_entry(hass: HomeAssistant) -> None:
@@ -16,4 +15,4 @@ async def test_setup_and_unload_entry(hass: HomeAssistant) -> None:
     assert isinstance(config_entry.runtime_data, TomTomDataUpdateCoordinator)
 
     # Unload the entry
-    assert await async_unload_entry(hass, config_entry)
+    await unload_integration(hass, config_entry)

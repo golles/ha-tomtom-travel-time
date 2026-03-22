@@ -54,5 +54,5 @@ if [ "$1" == "--devcontainer" ]; then
     log_yellow "Once all the extensions are installed, reload the window (Command Palette -> Developer: Reload Window) to make sure all extensions are activated!"
 else
     log_empty_line 1
-    log_yellow "Done, you might want to reload your terminal or run \"source .venv/bin/activate\" to activate the virtual environment"
+    log_yellow "Done, you should reload your terminal"
 fi

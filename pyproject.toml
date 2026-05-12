@@ -28,7 +28,7 @@ Issues = "https://github.com/golles/ha-tomtom-travel-time/issues"
 
 [dependency-groups]
 dev = [
-  "mypy==2.0.0",
+  "mypy==2.1.0",
   "pre-commit==4.6.0",
   "pylint==4.0.5",
   "pytest",

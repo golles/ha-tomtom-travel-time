@@ -2565,7 +2565,7 @@ wheels = [
 
 [[package]]
 name = "tomtom-apis"
-version = "0.1.0"
+version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -2573,9 +2573,9 @@ dependencies = [
     { name = "mashumaro" },
     { name = "orjson" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1a/f0/644f6770cf770fc9e21f9318568069b446ded066ef4750d935298dae1c65/tomtom_apis-0.1.0.tar.gz", hash = "sha256:9e9fdab48a34512cdf615fcc4a6ef0fc8550f583da88af160f8ead3c6fb4b894", size = 1422876, upload-time = "2025-09-17T09:04:10.99Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/05/13/fe4917ff9dd3e69b5dcda965968c0808afbe1357ac1e59d504b3d8df12f3/tomtom_apis-0.1.2.tar.gz", hash = "sha256:e70cd5699dc1b2159b9fa7d54dbf75fe8d2d97d0e763987110e13536ef25d0a1", size = 1400991, upload-time = "2026-06-20T12:13:47.227Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/da/2a/37f781a80bf5d1892fb60fff1b8e020c1f6408cee5427dde55d4c01a64aa/tomtom_apis-0.1.0-py3-none-any.whl", hash = "sha256:5c8155f12a11123b75137214bc75adc6ee7a9a3af2a9ab96cdfa85667c646c25", size = 53969, upload-time = "2025-09-17T09:04:09.422Z" },
+    { url = "https://files.pythonhosted.org/packages/e3/e9/dcb2f2a8e3ffb3d5e25e62653f4c70f0fe8211b56f8ee02083941c0a3918/tomtom_apis-0.1.2-py3-none-any.whl", hash = "sha256:781cdc579dfb6731ac16f1def9c1fa45197c45a7a9861de458f6a6123bff0749", size = 54107, upload-time = "2026-06-20T12:13:45.903Z" },
 ]
 
 [[package]]
@@ -2612,7 +2612,7 @@ runhass = [
 [package.metadata]
 requires-dist = [
     { name = "homeassistant", specifier = ">=2025.8.0" },
-    { name = "tomtom-apis", specifier = "==0.1.0" },
+    { name = "tomtom-apis", specifier = "==0.1.2" },
 ]
 
 [package.metadata.requires-dev]

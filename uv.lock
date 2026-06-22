@@ -2259,12 +2259,12 @@ wheels = [
 
 [[package]]
 name = "pyturbojpeg"
-version = "2.2.0"
+version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d7/c6/efd96866c457f22d1e893f9ac67f17ff61a5661ad2a061da61657e9c4999/pyturbojpeg-2.2.0.tar.gz", hash = "sha256:aaf0305aa9627ce7fdb8f592eb5e0fce804e1bd87db49900bcf78d7d5138eb88", size = 32514, upload-time = "2026-02-21T02:49:46.505Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a0/a7/9803e8960c6cdcb369625922b322f670ed0835f99df037d056c17419027f/pyturbojpeg-2.3.0.tar.gz", hash = "sha256:43fdcf281b7e3a4424ad0e5107225da207c29c08d8d7d8b096a79390257d9dfd", size = 32612, upload-time = "2026-06-21T08:03:45.456Z" }
 
 [[package]]
 name = "pytz"

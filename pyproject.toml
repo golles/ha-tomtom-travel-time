@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "homeassistant>=2025.8.0",
+    "homeassistant>=2026.10.0",
     "tomtom-apis==0.1.2",
 ]
 

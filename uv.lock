@@ -2644,7 +2644,7 @@ runhass = [
 
 [package.metadata]
 requires-dist = [
-    { name = "homeassistant", specifier = ">=2025.8.0" },
+    { name = "homeassistant", specifier = ">=2026.10.0" },
     { name = "tomtom-apis", specifier = "==0.1.2" },
 ]
 

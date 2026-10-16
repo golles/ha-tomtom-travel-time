@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-import voluptuous as vol
+import probatio
 from homeassistant.config_entries import SOURCE_RECONFIGURE, ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlow
 from homeassistant.const import CONF_API_KEY, CONF_NAME
 from homeassistant.core import callback
@@ -33,9 +33,9 @@ from custom_components.tomtom_travel_time.helpers import UserInputLatLan, Valida
 from tomtom_apis import TomTomAPIClientError, TomTomAPIConnectionError, TomTomAPIRequestTimeoutError, TomTomAPIServerError
 from tomtom_apis.models import LatLon
 
-OPTIONS_SCHEMA = vol.Schema(
+OPTIONS_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_VEHICLE_TYPE): SelectSelector(
+        probatio.Required(CONF_VEHICLE_TYPE): SelectSelector(
             SelectSelectorConfig(
                 options=VEHICLE_TYPES,
                 mode=SelectSelectorMode.DROPDOWN,
@@ -43,7 +43,7 @@ OPTIONS_SCHEMA = vol.Schema(
                 sort=True,
             ),
         ),
-        vol.Required(CONF_ROUTE_TYPE): SelectSelector(
+        probatio.Required(CONF_ROUTE_TYPE): SelectSelector(
             SelectSelectorConfig(
                 options=ROUTE_TYPES,
                 mode=SelectSelectorMode.DROPDOWN,
@@ -51,7 +51,7 @@ OPTIONS_SCHEMA = vol.Schema(
                 sort=True,
             ),
         ),
-        vol.Optional(CONF_AVOID_TYPE): SelectSelector(
+        probatio.Optional(CONF_AVOID_TYPE): SelectSelector(
             SelectSelectorConfig(
                 options=AVOID_TYPES,
                 mode=SelectSelectorMode.DROPDOWN,
@@ -63,11 +63,11 @@ OPTIONS_SCHEMA = vol.Schema(
     },
 )
 
-CONFIG_SCHEMA = vol.Schema(
+CONFIG_SCHEMA = probatio.Schema(
     {
-        vol.Required(CONF_NAME, default=DEFAULT_NAME): TextSelector(),
-        vol.Required(CONF_API_KEY): TextSelector(),
-        vol.Required(CONF_LOCATIONS): TextSelector(
+        probatio.Required(CONF_NAME, default=DEFAULT_NAME): TextSelector(),
+        probatio.Required(CONF_API_KEY): TextSelector(),
+        probatio.Required(CONF_LOCATIONS): TextSelector(
             TextSelectorConfig(
                 type=TextSelectorType.TEXT,
                 multiple=True,

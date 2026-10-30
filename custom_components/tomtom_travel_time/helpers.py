@@ -3,7 +3,8 @@
 import logging
 import re
 
-from homeassistant.core import HomeAssistant
+from homeassistant.const import STATE_HOME, STATE_NOT_HOME, STATE_UNAVAILABLE, STATE_UNKNOWN
+from homeassistant.core import HomeAssistant, valid_entity_id
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.location import find_coordinates
 
@@ -15,6 +16,9 @@ from tomtom_apis.routing import RoutingApi
 from tomtom_apis.routing.models import CalculateRouteParams
 
 _LOGGER = logging.getLogger(__name__)
+
+# States that find_coordinates can return for an entity without a location, these should never be geocoded.
+UNRESOLVABLE_STATES = {STATE_HOME, STATE_NOT_HOME, STATE_UNAVAILABLE, STATE_UNKNOWN}
 
 
 async def lat_lon_from_user_input(hass: HomeAssistant, api_key: str, user_input: str) -> UserInputLatLan | None:
@@ -33,9 +37,20 @@ async def lat_lon_from_user_input(hass: HomeAssistant, api_key: str, user_input:
             lat, lon = map(float, match.groups())
             return UserInputLatLan(location=LatLon(lat=lat, lon=lon))
 
+    # Never geocode an entity ID, only what find_coordinates resolved it to, e.g. an address in the state of a sensor.
+    query = user_input
+    if valid_entity_id(user_input):
+        if not coords_str or valid_entity_id(coords_str):
+            _LOGGER.debug("Cannot determine location of %s, the entity (or the entity its state refers to) does not exist (yet)", user_input)
+            return None
+        if coords_str in UNRESOLVABLE_STATES:
+            _LOGGER.debug("Cannot determine location of %s, the entity has no location and its state is '%s'", user_input, coords_str)
+            return None
+        query = coords_str
+
     # Step 3: Fallback to geocoding API to determine the location.
     async with GeocodingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass)) as geo_coding_api:
-        response = await geo_coding_api.get_geocode(query=user_input)
+        response = await geo_coding_api.get_geocode(query=query)
 
         if len(response.results) > 0:
             _LOGGER.info("Geocoding location response: %s", response.results[0].position)

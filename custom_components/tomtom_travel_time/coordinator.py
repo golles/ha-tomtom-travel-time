@@ -56,12 +56,13 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
         _LOGGER.debug("Fetching Route")
 
         locations: list[LatLon] = []
-        for location in self.config_entry.data[CONF_LOCATIONS]:
+        for index, location in enumerate(self.config_entry.data[CONF_LOCATIONS], start=1):
             lat_lon = await lat_lon_from_user_input(self.hass, self._api_key, location)
             if not isinstance(lat_lon, UserInputLatLan):
-                _LOGGER.error("Cannot determine location: %s", location)
-            else:
-                locations.append(lat_lon.location)
+                # Only unresolvable input ends up here (coordinates are always resolved), so this never contains coordinates.
+                msg = f"Cannot determine location {index}: {location}"
+                raise UpdateFailed(msg)
+            locations.append(lat_lon.location)
 
         travel_mode = TravelModeType[self.config_entry.options[CONF_VEHICLE_TYPE].upper()]
         route_type = RouteType[self.config_entry.options[CONF_ROUTE_TYPE].upper()]

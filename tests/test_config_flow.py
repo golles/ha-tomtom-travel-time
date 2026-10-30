@@ -1,7 +1,7 @@
 """Test config flow."""
 
 from collections.abc import Generator
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 
 import pytest
 from homeassistant.config_entries import SOURCE_USER
@@ -126,6 +126,19 @@ async def test_unsuccessful_config_flow_cannot_determine_location(hass: HomeAssi
         # Check that the config flow returns the error
         assert result2["type"] == FlowResultType.FORM
         assert result2["errors"] == {"base": "cannot_determine_locations"}
+
+
+async def test_unsuccessful_config_flow_entity_does_not_exist(hass: HomeAssistant, mock_geocoding_api: AsyncMock) -> None:
+    """Test an unsuccessful config flow due to a non-existing entity, which should not be geocoded."""
+    config_data = get_mock_config_data()
+    config_data[CONF_LOCATIONS] = ["52.377956, 4.897071", "person.does_not_exist"]
+    result = await hass.config_entries.flow.async_init(DOMAIN, context={"source": SOURCE_USER})
+    result2 = await hass.config_entries.flow.async_configure(result["flow_id"], user_input=config_data)
+
+    assert result2["type"] == FlowResultType.FORM
+    assert result2["errors"] == {"base": "cannot_determine_locations"}
+    assert result2["description_placeholders"] == {"num": "2"}
+    mock_geocoding_api.get_geocode.assert_not_called()
 
 
 @pytest.mark.parametrize(

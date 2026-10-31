@@ -9,7 +9,14 @@ from homeassistant.const import CONF_API_KEY, CONF_NAME
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 
-from custom_components.tomtom_travel_time.const import CONF_AVOID_TYPE, CONF_LOCATIONS, CONF_ROUTE_TYPE, CONF_VEHICLE_TYPE, DOMAIN
+from custom_components.tomtom_travel_time.const import (
+    CONF_AVOID_TYPE,
+    CONF_LOCATIONS,
+    CONF_ROUTE_TYPE,
+    CONF_UPDATE_INTERVAL,
+    CONF_VEHICLE_TYPE,
+    DOMAIN,
+)
 from custom_components.tomtom_travel_time.model import UserInputLatLan
 from tomtom_apis import TomTomAPIClientError, TomTomAPIConnectionError, TomTomAPIRequestTimeoutError, TomTomAPIServerError
 from tomtom_apis.models import LatLon, TravelModeType
@@ -21,6 +28,7 @@ MOCK_UPDATE_CONFIG = {
     CONF_VEHICLE_TYPE: TravelModeType.BICYCLE.name.lower(),
     CONF_ROUTE_TYPE: RouteType.ECO.name.lower(),
     CONF_AVOID_TYPE: [AvoidType.TOLL_ROADS.name.lower()],
+    CONF_UPDATE_INTERVAL: 15,
 }
 
 
@@ -212,16 +220,19 @@ async def test_options_flow(hass: HomeAssistant) -> None:
     assert result["type"] == FlowResultType.FORM
     assert result["step_id"] == "init"
 
-    # Enter some fake data into the form
-    result2 = await hass.config_entries.options.async_configure(
-        result["flow_id"],
-        user_input=MOCK_UPDATE_CONFIG,
-    )
+    # Enter some fake data into the form, the number selector returns a float
+    with patch.object(hass.config_entries, "async_schedule_reload") as mock_schedule_reload:
+        result2 = await hass.config_entries.options.async_configure(
+            result["flow_id"],
+            user_input={**MOCK_UPDATE_CONFIG, CONF_UPDATE_INTERVAL: 15.0},
+        )
 
     # Verify that the flow finishes
     assert result2["type"] == FlowResultType.CREATE_ENTRY
 
-    # Verify that the options were updated
+    # Verify that the options were updated, and the entry is reloaded to apply them
     assert config_entry.options == MOCK_UPDATE_CONFIG
+    assert isinstance(config_entry.options[CONF_UPDATE_INTERVAL], int)
+    mock_schedule_reload.assert_called_once_with(config_entry.entry_id)
 
     await unload_integration(hass, config_entry)

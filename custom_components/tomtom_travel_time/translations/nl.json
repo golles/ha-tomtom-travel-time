@@ -34,9 +34,13 @@
           "vehicle_type": "Voertuigtype",
           "route_type": "Routetype",
           "avoid_type": "Vermijden",
+          "update_interval": "Update-interval",
           "avoid_toll_roads": "Tolwegen vermijden?",
           "avoid_ferries": "Veerboten vermijden?",
           "avoid_subscription_roads": "Wegen waarvoor een vignet/abonnement nodig is vermijden?"
+        },
+        "data_description": {
+          "update_interval": "Hoe vaak de reistijd wordt bijgewerkt. Elke update kost één Routing API-request, houd rekening met het gratis maandelijkse TomTom-quotum als je meerdere routes hebt."
         }
       }
     }

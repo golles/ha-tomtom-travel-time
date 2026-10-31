@@ -34,9 +34,13 @@
           "vehicle_type": "Vehicle type",
           "route_type": "Route type",
           "avoid_type": "Avoid",
+          "update_interval": "Update interval",
           "avoid_toll_roads": "Avoid toll roads?",
           "avoid_ferries": "Avoid ferries?",
           "avoid_subscription_roads": "Avoid roads needing a vignette / subscription?"
+        },
+        "data_description": {
+          "update_interval": "How often the travel time is updated. Each update uses one Routing API request, keep the free monthly TomTom quota in mind when you have multiple routes."
         }
       }
     }

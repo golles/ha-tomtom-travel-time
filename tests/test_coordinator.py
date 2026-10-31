@@ -1,5 +1,6 @@
 """Test coordinator."""
 
+from datetime import timedelta
 from unittest.mock import AsyncMock
 
 import pytest
@@ -10,7 +11,7 @@ from multidict import CIMultiDict, CIMultiDictProxy
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from yarl import URL
 
-from custom_components.tomtom_travel_time.const import CONF_LOCATIONS, DEFAULT_OPTIONS, DOMAIN
+from custom_components.tomtom_travel_time.const import CONF_LOCATIONS, CONF_UPDATE_INTERVAL, DEFAULT_OPTIONS, DEFAULT_UPDATE_INTERVAL, DOMAIN
 from custom_components.tomtom_travel_time.coordinator import TomTomDataUpdateCoordinator
 from custom_components.tomtom_travel_time.model import TomTomTravelTimeData
 from tomtom_apis.exceptions import TomTomAPIClientError, TomTomAPIConnectionError, TomTomAPIRequestTimeoutError
@@ -108,3 +109,18 @@ async def test_async_update_data_api_failure_timeout(hass: HomeAssistant, mock_r
     )
     with pytest.raises(UpdateFailed, match=r"^TomTomAPIRequestTimeoutError: Timeout occurred while connecting to the API$"):
         await coordinator._async_update_data()  # pylint: disable=protected-access # noqa: SLF001
+
+
+async def test_update_interval(hass: HomeAssistant) -> None:
+    """Test the update interval comes from the options."""
+    config_entry = MockConfigEntry(domain=DOMAIN, data=get_mock_config_data(), options={**DEFAULT_OPTIONS, CONF_UPDATE_INTERVAL: 15})
+    coordinator = TomTomDataUpdateCoordinator(hass=hass, config_entry=config_entry, api_key="dummy_api")
+    assert coordinator.update_interval == timedelta(minutes=15)
+
+
+async def test_update_interval_default(hass: HomeAssistant) -> None:
+    """Test the default update interval for entries created before the option existed."""
+    options = {key: value for key, value in DEFAULT_OPTIONS.items() if key != CONF_UPDATE_INTERVAL}
+    config_entry = MockConfigEntry(domain=DOMAIN, data=get_mock_config_data(), options=options)
+    coordinator = TomTomDataUpdateCoordinator(hass=hass, config_entry=config_entry, api_key="dummy_api")
+    assert coordinator.update_interval == timedelta(minutes=DEFAULT_UPDATE_INTERVAL)

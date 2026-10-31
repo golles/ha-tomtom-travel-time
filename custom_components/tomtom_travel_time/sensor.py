@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import timedelta
-
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorEntityDescription, SensorStateClass
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_NAME, UnitOfLength, UnitOfTime
@@ -13,11 +11,8 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, DEFAULT_NAME, DEFAULT_SCAN_INTERVAL, DOMAIN
+from .const import ATTRIBUTION, DEFAULT_NAME, DOMAIN
 from .coordinator import TomTomDataUpdateCoordinator
-
-SCAN_INTERVAL = timedelta(seconds=DEFAULT_SCAN_INTERVAL)
-
 
 SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     SensorEntityDescription(

@@ -18,8 +18,9 @@ from custom_components.tomtom_travel_time.const import (
     CONF_AVOID_TYPE,
     CONF_LOCATIONS,
     CONF_ROUTE_TYPE,
+    CONF_UPDATE_INTERVAL,
     CONF_VEHICLE_TYPE,
-    DEFAULT_SCAN_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
 )
 from custom_components.tomtom_travel_time.helpers import lat_lon_from_user_input
@@ -49,7 +50,7 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
             _LOGGER,
             config_entry=config_entry,
             name=DOMAIN,
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+            update_interval=timedelta(minutes=config_entry.options.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)),
         )
         self._api_key = api_key
         self._api = RoutingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass))

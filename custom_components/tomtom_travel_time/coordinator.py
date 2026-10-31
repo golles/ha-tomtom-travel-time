@@ -5,7 +5,10 @@ from __future__ import annotations
 import logging
 import math
 from datetime import timedelta
+from http import HTTPStatus
 
+from aiohttp import ClientResponseError
+from homeassistant.components.diagnostics import REDACTED
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -87,4 +90,14 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
                 delay=math.ceil(response.routes[0].summary.trafficDelayInSeconds / 60),
             )
         except Exception as exception:
-            raise UpdateFailed from exception
+            cause = exception.__cause__
+            if isinstance(cause, ClientResponseError):
+                # Don't use the cause's str/repr, it contains the request URL with the API key.
+                msg = f"TomTom API returned HTTP {cause.status} {cause.message}"
+                if cause.status == HTTPStatus.FORBIDDEN:
+                    msg += ". Check in the TomTom Developer Portal that your API key is valid, has the Routing API enabled and is within its quota"
+            else:
+                msg = f"{type(exception).__name__}: {exception}"
+                if cause is not None and str(cause):
+                    msg += f" ({type(cause).__name__}: {cause})"
+            raise UpdateFailed(msg.replace(self._api_key, REDACTED)) from exception

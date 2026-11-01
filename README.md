@@ -63,6 +63,49 @@ Configuration is done entirely through the Home Assistant UI—no YAML editing r
 
 ![Set options](/img/options.png)
 
+### Update interval and API quota
+
+Every update of a route uses one TomTom Routing API request. The update interval can be changed per route in the options (default: 5 minutes).
+
+The free TomTom plan has a monthly quota (check the current limits for your key in the [TomTom Developer Portal](https://developer.tomtom.com/)). With a free quota of 20,000 Routing API requests per month, this is roughly what fits:
+
+| Routes | Minimum update interval |
+| ------ | ----------------------- |
+| 1      | 3 minutes               |
+| 2      | 5 minutes               |
+| 3      | 7 minutes               |
+| 4      | 9 minutes               |
+
+Formula: `routes × 60 × 24 × 31 / interval in minutes ≤ monthly quota`.
+
+When the quota is exceeded, TomTom responds with `HTTP 403 Forbidden` and the sensors become unavailable until the quota resets.
+
+#### Only update when you need it
+
+If you only need travel times at certain moments (e.g. before your commute), you can disable polling and update the sensors with an automation instead:
+
+1. Go to **Settings** → **Devices & Services** → **TomTom Travel Time**.
+2. Click the three dots menu of the route and select **System options**.
+3. Disable **Enable polling for updates**.
+4. Create an automation that calls the `homeassistant.update_entity` action, for example:
+
+```yaml
+automation:
+  - alias: Update travel time during commute
+    triggers:
+      - trigger: time_pattern
+        minutes: /5
+    conditions:
+      - condition: time
+        after: "07:00:00"
+        before: "09:00:00"
+        weekday: [mon, tue, wed, thu, fri]
+    actions:
+      - action: homeassistant.update_entity
+        target:
+          entity_id: sensor.home_work_duration
+```
+
 ## Troubleshooting
 
 ### Debug Logging

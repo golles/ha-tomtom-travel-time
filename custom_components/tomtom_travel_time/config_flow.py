@@ -5,10 +5,13 @@ from __future__ import annotations
 from typing import Any
 
 import probatio
-from homeassistant.config_entries import SOURCE_RECONFIGURE, ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlow
+from homeassistant.config_entries import SOURCE_RECONFIGURE, ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlowWithReload
 from homeassistant.const import CONF_API_KEY, CONF_NAME
 from homeassistant.core import callback
 from homeassistant.helpers.selector import (
+    NumberSelector,
+    NumberSelectorConfig,
+    NumberSelectorMode,
     SelectSelector,
     SelectSelectorConfig,
     SelectSelectorMode,
@@ -22,9 +25,11 @@ from custom_components.tomtom_travel_time.const import (
     CONF_AVOID_TYPE,
     CONF_LOCATIONS,
     CONF_ROUTE_TYPE,
+    CONF_UPDATE_INTERVAL,
     CONF_VEHICLE_TYPE,
     DEFAULT_NAME,
     DEFAULT_OPTIONS,
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
     ROUTE_TYPES,
     VEHICLE_TYPES,
@@ -60,6 +65,15 @@ OPTIONS_SCHEMA = probatio.Schema(
                 multiple=True,
             ),
         ),
+        probatio.Required(CONF_UPDATE_INTERVAL, default=DEFAULT_UPDATE_INTERVAL): NumberSelector(
+            NumberSelectorConfig(
+                min=1,
+                max=1440,
+                step=1,
+                unit_of_measurement="min",
+                mode=NumberSelectorMode.BOX,
+            ),
+        ),
     },
 )
 
@@ -77,17 +91,19 @@ CONFIG_SCHEMA = probatio.Schema(
 )
 
 
-def default_options() -> dict[str, str | bool | list[str]]:
+def default_options() -> dict[str, str | bool | int | list[str]]:
     """Get the default options."""
     return DEFAULT_OPTIONS.copy()
 
 
-class TomTomOptionsFlow(OptionsFlow):
+class TomTomOptionsFlow(OptionsFlowWithReload):
     """Handle an options flow for TomTom Travel Time."""
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
         """Handle the initial step."""
         if user_input is not None:
+            # The number selector returns a float.
+            user_input[CONF_UPDATE_INTERVAL] = int(user_input[CONF_UPDATE_INTERVAL])
             return self.async_create_entry(
                 title="",
                 data=user_input,

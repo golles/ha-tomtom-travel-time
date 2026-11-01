@@ -5,7 +5,10 @@ from __future__ import annotations
 import logging
 import math
 from datetime import timedelta
+from http import HTTPStatus
 
+from aiohttp import ClientResponseError
+from homeassistant.components.diagnostics import REDACTED
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -15,8 +18,9 @@ from custom_components.tomtom_travel_time.const import (
     CONF_AVOID_TYPE,
     CONF_LOCATIONS,
     CONF_ROUTE_TYPE,
+    CONF_UPDATE_INTERVAL,
     CONF_VEHICLE_TYPE,
-    DEFAULT_SCAN_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL,
     DOMAIN,
 )
 from custom_components.tomtom_travel_time.helpers import lat_lon_from_user_input
@@ -46,7 +50,7 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
             _LOGGER,
             config_entry=config_entry,
             name=DOMAIN,
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+            update_interval=timedelta(minutes=config_entry.options.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL)),
         )
         self._api_key = api_key
         self._api = RoutingApi(ApiOptions(api_key=api_key), async_get_clientsession(hass))
@@ -87,4 +91,14 @@ class TomTomDataUpdateCoordinator(DataUpdateCoordinator[TomTomTravelTimeData]):
                 delay=math.ceil(response.routes[0].summary.trafficDelayInSeconds / 60),
             )
         except Exception as exception:
-            raise UpdateFailed from exception
+            cause = exception.__cause__
+            if isinstance(cause, ClientResponseError):
+                # Don't use the cause's str/repr, it contains the request URL with the API key.
+                msg = f"TomTom API returned HTTP {cause.status} {cause.message}"
+                if cause.status == HTTPStatus.FORBIDDEN:
+                    msg += ". Check in the TomTom Developer Portal that your API key is valid, has the Routing API enabled and is within its quota"
+            else:
+                msg = f"{type(exception).__name__}: {exception}"
+                if cause is not None and str(cause):
+                    msg += f" ({type(cause).__name__}: {cause})"
+            raise UpdateFailed(msg.replace(self._api_key, REDACTED)) from exception

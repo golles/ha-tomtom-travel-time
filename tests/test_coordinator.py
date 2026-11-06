@@ -8,7 +8,7 @@ from aiohttp import ClientResponseError, RequestInfo
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import UpdateFailed
 from multidict import CIMultiDict, CIMultiDictProxy
-from pytest_homeassistant_custom_component.common import MockConfigEntry
+from pytest_homeassistant.common import MockConfigEntry
 from yarl import URL
 
 from custom_components.tomtom_travel_time.const import CONF_LOCATIONS, CONF_UPDATE_INTERVAL, DEFAULT_OPTIONS, DEFAULT_UPDATE_INTERVAL, DOMAIN

@@ -65,7 +65,7 @@ custom_components/tomtom_travel_time/
 
 ## Testing
 
-Tests use `pytest-homeassistant-custom-component`. The `conftest.py` auto-patches `RoutingApi` and `GeocodingApi` in all tests. The `mocked_data` fixture loads `tests/fixtures/response.json` into a `CalculatedRouteResponse` object.
+Tests use `pytest-homeassistant`. The `conftest.py` auto-patches `RoutingApi` and `GeocodingApi` in all tests. The `mocked_data` fixture loads `tests/fixtures/response.json` into a `CalculatedRouteResponse` object.
 
 Coverage is configured to track `custom_components/tomtom_travel_time` and reported to Codecov.
 
